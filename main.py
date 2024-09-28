@@ -42,7 +42,7 @@ def parse_args():
         "--save_limit", type=int, default=5, help="저장할 모델의 최대 개수"
     )
     parser.add_argument("--seed", type=int, default=42, help="랜덤 시드 값")
-    parser.add_argument("--epochs", type=int, default=5, help="에폭 수 (예: 10)")
+    parser.add_argument("--epochs", type=int, default=3, help="에폭 수 (예: 10)")
     parser.add_argument(
         "--batch_size",
         type=int,
@@ -52,11 +52,11 @@ def parse_args():
     parser.add_argument(
         "--max_len", type=int, default=256, help="입력 시퀀스의 최대 길이"
     )
-    parser.add_argument("--lr", type=float, default=3e-5, help="학습률(learning rate)")
+    parser.add_argument("--lr", type=float, default=3e-5, help="학습률(learning rate)") 
     parser.add_argument(
         "--weight_decay", type=float, default=0.01, help="가중치 감소(weight decay) 값"
     )
-    parser.add_argument("--warmup_steps", type=int, default=300, help="워밍업 스텝 수")
+    parser.add_argument("--warmup_steps", type=int, default=300, help="워밍업 스텝 수") # 학습 초기에 과도한 학습을 방지하고 안정적으로 학습을 시작하기 위해 워밍업 단계
     parser.add_argument(
         "--scheduler", type=str, default="linear", help="학습률 스케줄러 타입"
     )
