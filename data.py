@@ -56,8 +56,8 @@ def prepare_dataset(dataset_dir, tokenizer, max_len):
     print("--- data loading Done ---")
 
     # split label
-    train_label = train_dataset["output"].values
-    valid_label = valid_dataset["output"].values
+    train_label = train_dataset["output"].values  # train_dataset["output"] : train_dataset의 'output' 열의 값을 Series 형태로 반환
+    valid_label = valid_dataset["output"].values  # .values: 해당 Series의 값을 NumPy 배열 형태로 변환
     test_label = test_dataset["output"].values
 
     # tokenizing dataset

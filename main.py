@@ -12,7 +12,7 @@ def parse_args():
         "--dataset_dir",
         type=str,
         default="./NIKL_AU_2023_COMPETITION_v1.0",
-        help="데이터셋 디렉토리 경로",
+        help="데이터셋 디렉토리 경로", 
     )
     parser.add_argument(
         "--model_type",
@@ -80,9 +80,24 @@ def parse_args():
 
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "false"  # tokenizer 사용 시 warning 방지
-    args = parse_args()
+    args = parse_args()  # 지정한 인자들을 받아와서 args 객체에 저장
     wandb.init(project="ssac", name=args.run_name)  # 프로젝트 이름 설정
     train(args)
+
+'''
+parse_args() 함수는 커맨드라인 인자를 파싱하는 함수
+
+project 인자는 어떤 프로젝트에 해당 실험을 연결할지를 지정합니다. 
+여기서는 "ssac"라는 프로젝트명입니다.
+
+name 인자를 통해 실험의 이름을 args.run_name으로 설정합니다. 
+이 이름은 커맨드라인 인자의 일부로 제공된 것입니다.
+
+train(args) : 파싱된 인자 args를 인자로 받아서, 
+모델 훈련에 필요한 설정을 적용하고 훈련 과정을 시작
+
+'''
+
 
 # .sh 
 # python main.py --run_name "ssac-bert" --lr 5e-4
