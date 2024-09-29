@@ -113,3 +113,30 @@ tokenizing 된 데이터 형태
 --- Set training arguments Done ---
 --- Set Trainer Done ---
 --- Start train ---
+[main 3b10063] Your commit message
+ 23 files changed, 1451 insertions(+), 4 deletions(-)
+ create mode 100644 __pycache__/data.cpython-310.pyc
+ create mode 100644 __pycache__/model.cpython-310.pyc
+ create mode 100644 __pycache__/utils.cpython-310.pyc
+ create mode 120000 wandb/debug-internal.log
+ create mode 120000 wandb/debug.log
+ create mode 120000 wandb/latest-run
+ create mode 100644 wandb/run-20240929_082826-o3wmfrv9/files/config.yaml
+ create mode 100644 wandb/run-20240929_082826-o3wmfrv9/files/output.log
+ create mode 100644 wandb/run-20240929_082826-o3wmfrv9/files/requirements.txt
+ create mode 100644 wandb/run-20240929_082826-o3wmfrv9/files/wandb-metadata.json
+ create mode 100644 wandb/run-20240929_082826-o3wmfrv9/files/wandb-summary.json
+ create mode 120000 wandb/run-20240929_082826-o3wmfrv9/logs/debug-core.log
+ create mode 100644 wandb/run-20240929_082826-o3wmfrv9/logs/debug-internal.log
+ create mode 100644 wandb/run-20240929_082826-o3wmfrv9/logs/debug.log
+ create mode 100644 wandb/run-20240929_082826-o3wmfrv9/run-o3wmfrv9.wandb
+ create mode 100644 wandb/run-20240929_082911-9ohtnjwo/files/output.log
+ create mode 100644 wandb/run-20240929_082911-9ohtnjwo/files/requirements.txt
+ create mode 100644 wandb/run-20240929_082911-9ohtnjwo/files/wandb-metadata.json
+ create mode 120000 wandb/run-20240929_082911-9ohtnjwo/logs/debug-core.log
+ create mode 100644 wandb/run-20240929_082911-9ohtnjwo/logs/debug-internal.log
+ create mode 100644 wandb/run-20240929_082911-9ohtnjwo/logs/debug.log
+ create mode 100644 wandb/run-20240929_082911-9ohtnjwo/run-9ohtnjwo.wandb
+error: src refspec test does not match any
+[31merror: failed to push some refs to 'https://github.com/kkkimin/hate_classification.git'
+[m
