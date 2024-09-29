@@ -30,13 +30,13 @@ def parse_args():
         "--save_path", type=str, default="/content/drive/MyDrive/git_clone/model", help="모델 저장 경로"
     )
     parser.add_argument(
-        "--save_step", type=int, default=200, help="모델을 저장할 스텝 간격"
+        "--save_step", type=int, default=500, help="모델을 저장할 스텝 간격"
     )
     parser.add_argument(
         "--logging_step", type=int, default=200, help="로그를 출력할 스텝 간격"
     )
     parser.add_argument(
-        "--eval_step", type=int, default=200, help="모델을 평가할 스텝 간격"
+        "--eval_step", type=int, default=500, help="모델을 평가할 스텝 간격"
     )
     parser.add_argument(
         "--save_limit", type=int, default=5, help="저장할 모델의 최대 개수"
@@ -50,13 +50,13 @@ def parse_args():
         help="배치 사이즈 (메모리에 맞게 조절, 예: 16 또는 32)",
     )
     parser.add_argument(
-        "--max_len", type=int, default=128, help="입력 시퀀스의 최대 길이"
+        "--max_len", type=int, default=256, help="입력 시퀀스의 최대 길이"
     )
-    parser.add_argument("--lr", type=float, default=3e-5, help="학습률(learning rate)") 
+    parser.add_argument("--lr", type=float, default=1e-5, help="학습률(learning rate)") 
     parser.add_argument(
         "--weight_decay", type=float, default=0.01, help="가중치 감소(weight decay) 값"
     )
-    parser.add_argument("--warmup_steps", type=int, default=300, help="워밍업 스텝 수") # 학습 초기에 과도한 학습을 방지하고 안정적으로 학습을 시작하기 위해 워밍업 단계
+    parser.add_argument("--warmup_steps", type=int, default=2073, help="워밍업 스텝 수") # 학습 초기에 과도한 학습을 방지하고 안정적으로 학습을 시작하기 위해 워밍업 단계
     parser.add_argument(
         "--scheduler", type=str, default="linear", help="학습률 스케줄러 타입"
     )
