@@ -42,15 +42,15 @@ def parse_args():
         "--save_limit", type=int, default=5, help="저장할 모델의 최대 개수"
     )
     parser.add_argument("--seed", type=int, default=42, help="랜덤 시드 값")
-    parser.add_argument("--epochs", type=int, default=3, help="에폭 수 (예: 10)")
+    parser.add_argument("--epochs", type=int, default=10, help="에폭 수 (예: 10)")
     parser.add_argument(
         "--batch_size",
         type=int,
-        default=8,
+        default=16,
         help="배치 사이즈 (메모리에 맞게 조절, 예: 16 또는 32)",
     )
     parser.add_argument(
-        "--max_len", type=int, default=256, help="입력 시퀀스의 최대 길이"
+        "--max_len", type=int, default=128, help="입력 시퀀스의 최대 길이"
     )
     parser.add_argument("--lr", type=float, default=3e-5, help="학습률(learning rate)") 
     parser.add_argument(

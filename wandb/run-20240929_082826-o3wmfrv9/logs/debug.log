@@ -1,0 +1,54 @@
+2024-09-29 08:28:26,895 INFO    MainThread:221 [wandb_setup.py:_flush():79] Current SDK version is 0.18.2
+2024-09-29 08:28:26,897 INFO    MainThread:221 [wandb_setup.py:_flush():79] Configure stats pid to 221
+2024-09-29 08:28:26,897 INFO    MainThread:221 [wandb_setup.py:_flush():79] Loading settings from /root/.config/wandb/settings
+2024-09-29 08:28:26,897 INFO    MainThread:221 [wandb_setup.py:_flush():79] Loading settings from /content/drive/MyDrive/git_clone/wandb/settings
+2024-09-29 08:28:26,897 INFO    MainThread:221 [wandb_setup.py:_flush():79] Loading settings from environment variables: {}
+2024-09-29 08:28:26,898 INFO    MainThread:221 [wandb_setup.py:_flush():79] Applying setup settings: {'mode': None, '_disable_service': None}
+2024-09-29 08:28:26,898 INFO    MainThread:221 [wandb_setup.py:_flush():79] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2024-09-29 08:28:26,898 INFO    MainThread:221 [wandb_setup.py:_flush():79] Applying login settings: {}
+2024-09-29 08:28:26,899 INFO    MainThread:221 [wandb_init.py:_log_setup():532] Logging user logs to /content/drive/MyDrive/git_clone/wandb/run-20240929_082826-o3wmfrv9/logs/debug.log
+2024-09-29 08:28:26,899 INFO    MainThread:221 [wandb_init.py:_log_setup():533] Logging internal logs to /content/drive/MyDrive/git_clone/wandb/run-20240929_082826-o3wmfrv9/logs/debug-internal.log
+2024-09-29 08:28:26,899 INFO    MainThread:221 [wandb_init.py:_jupyter_setup():478] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x79882fc8a8c0>
+2024-09-29 08:28:26,900 INFO    MainThread:221 [wandb_init.py:init():616] calling init triggers
+2024-09-29 08:28:26,900 INFO    MainThread:221 [wandb_init.py:init():623] wandb.init called with sweep_config: {}
+config: {}
+2024-09-29 08:28:26,901 INFO    MainThread:221 [wandb_init.py:init():666] starting backend
+2024-09-29 08:28:26,901 INFO    MainThread:221 [wandb_init.py:init():670] sending inform_init request
+2024-09-29 08:28:26,908 INFO    MainThread:221 [backend.py:_multiprocessing_setup():104] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2024-09-29 08:28:26,908 INFO    MainThread:221 [wandb_init.py:init():683] backend started and connected
+2024-09-29 08:28:26,955 INFO    MainThread:221 [wandb_run.py:_label_probe_notebook():1345] probe notebook
+2024-09-29 08:28:27,617 INFO    MainThread:221 [wandb_init.py:init():778] updated telemetry
+2024-09-29 08:28:27,671 INFO    MainThread:221 [wandb_init.py:init():811] communicating run to backend with 90.0 second timeout
+2024-09-29 08:28:27,886 INFO    MainThread:221 [wandb_init.py:init():862] starting run threads in backend
+2024-09-29 08:28:28,441 INFO    MainThread:221 [wandb_run.py:_console_start():2464] atexit reg
+2024-09-29 08:28:28,443 INFO    MainThread:221 [wandb_run.py:_redirect():2312] redirect: wrap_raw
+2024-09-29 08:28:28,444 INFO    MainThread:221 [wandb_run.py:_redirect():2377] Wrapping output streams.
+2024-09-29 08:28:28,445 INFO    MainThread:221 [wandb_run.py:_redirect():2402] Redirects installed.
+2024-09-29 08:28:28,451 INFO    MainThread:221 [wandb_init.py:init():906] run started, returning control to user process
+2024-09-29 08:28:35,953 INFO    MainThread:221 [jupyter.py:save_ipynb():387] not saving jupyter notebook
+2024-09-29 08:28:35,954 INFO    MainThread:221 [wandb_init.py:_pause_backend():443] pausing backend
+2024-09-29 08:29:11,326 INFO    MainThread:221 [wandb_init.py:_resume_backend():448] resuming backend
+2024-09-29 08:29:11,420 INFO    MainThread:221 [wandb_setup.py:_flush():79] Current SDK version is 0.18.2
+2024-09-29 08:29:11,425 INFO    MainThread:221 [wandb_setup.py:_flush():79] Configure stats pid to 221
+2024-09-29 08:29:11,425 INFO    MainThread:221 [wandb_setup.py:_flush():79] Loading settings from /root/.config/wandb/settings
+2024-09-29 08:29:11,426 INFO    MainThread:221 [wandb_setup.py:_flush():79] Loading settings from /content/drive/MyDrive/git_clone/wandb/settings
+2024-09-29 08:29:11,426 INFO    MainThread:221 [wandb_setup.py:_flush():79] Loading settings from environment variables: {}
+2024-09-29 08:29:11,426 INFO    MainThread:221 [wandb_setup.py:_flush():79] Applying setup settings: {'mode': None, '_disable_service': None}
+2024-09-29 08:29:11,427 INFO    MainThread:221 [wandb_setup.py:_flush():79] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2024-09-29 08:29:11,427 INFO    MainThread:221 [wandb_setup.py:_flush():79] Applying login settings: {}
+2024-09-29 08:29:11,428 INFO    MainThread:221 [wandb_init.py:_log_setup():532] Logging user logs to /content/drive/MyDrive/git_clone/wandb/run-20240929_082911-9ohtnjwo/logs/debug.log
+2024-09-29 08:29:11,428 INFO    MainThread:221 [wandb_init.py:_log_setup():533] Logging internal logs to /content/drive/MyDrive/git_clone/wandb/run-20240929_082911-9ohtnjwo/logs/debug-internal.log
+2024-09-29 08:29:11,429 INFO    MainThread:221 [wandb_init.py:init():616] calling init triggers
+2024-09-29 08:29:11,429 INFO    MainThread:221 [wandb_init.py:init():623] wandb.init called with sweep_config: {}
+config: {}
+2024-09-29 08:29:11,429 INFO    MainThread:221 [wandb_init.py:init():641] re-initializing run, found existing run on stack: o3wmfrv9
+2024-09-29 08:29:11,437 INFO    MainThread:221 [wandb_run.py:_finish():2163] finishing run smart-sara-kim-/KIN/o3wmfrv9
+2024-09-29 08:29:11,438 INFO    MainThread:221 [jupyter.py:save_history():459] not saving jupyter history
+2024-09-29 08:29:11,438 INFO    MainThread:221 [jupyter.py:save_ipynb():387] not saving jupyter notebook
+2024-09-29 08:29:11,438 INFO    MainThread:221 [wandb_init.py:_jupyter_teardown():460] cleaning up jupyter logic
+2024-09-29 08:29:11,439 INFO    MainThread:221 [wandb_run.py:_atexit_cleanup():2427] got exitcode: 0
+2024-09-29 08:29:11,439 INFO    MainThread:221 [wandb_run.py:_restore():2409] restore
+2024-09-29 08:29:11,440 INFO    MainThread:221 [wandb_run.py:_restore():2415] restore done
+2024-09-29 08:29:12,926 INFO    MainThread:221 [wandb_run.py:_footer_history_summary_info():4042] rendering history
+2024-09-29 08:29:12,926 INFO    MainThread:221 [wandb_run.py:_footer_history_summary_info():4074] rendering summary
+2024-09-29 08:29:12,937 INFO    MainThread:221 [wandb_run.py:_footer_sync_info():4001] logging synced files
