@@ -43,7 +43,7 @@ def construct_tokenized_dataset(dataset, tokenizer, max_length):
     )
     print("tokenizing 된 데이터 형태")
     print("-" * 100)
-    print(tokenized_senetences[:5])
+    print(tokenized_senetences[:2])
     return tokenized_senetences
 
 

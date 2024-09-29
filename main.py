@@ -11,7 +11,7 @@ def parse_args():
     parser.add_argument(
         "--dataset_dir",
         type=str,
-        default="./NIKL_AU_2023_COMPETITION_v1.0",
+        default="/content/drive/MyDrive/git_clone",
         help="데이터셋 디렉토리 경로", 
     )
     parser.add_argument(
@@ -27,7 +27,7 @@ def parse_args():
         help='모델 이름 (예: "klue/bert-base", "monologg/koelectra-base-finetuned-nsmc")',
     )
     parser.add_argument(
-        "--save_path", type=str, default="./model", help="모델 저장 경로"
+        "--save_path", type=str, default="/content/drive/MyDrive/git_clone/model", help="모델 저장 경로"
     )
     parser.add_argument(
         "--save_step", type=int, default=200, help="모델을 저장할 스텝 간격"
@@ -63,7 +63,7 @@ def parse_args():
     parser.add_argument(
         "--model_dir",
         type=str,
-        default="./best_model",
+        default="/content/drive/MyDrive/git_clone/best_model",
         help="추론 시 불러올 모델의 경로",
     )
 
@@ -81,7 +81,7 @@ def parse_args():
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "false"  # tokenizer 사용 시 warning 방지
     args = parse_args()  # 지정한 인자들을 받아와서 args 객체에 저장
-    wandb.init(project="ssac", name=args.run_name)  # 프로젝트 이름 설정
+    wandb.init(project="KIN", name=args.run_name)  # 프로젝트 이름 설정
     train(args)
 
 '''
