@@ -36,7 +36,7 @@ def infer_and_eval(model_name,model_dir):
     model.to(device)
 
     # set data
-    _,_, hate_test_dataset, test_dataset = prepare_dataset("./NIKL_AU_2023_COMPETITION_v1.0",tokenizer,256)
+    _,_, hate_test_dataset, test_dataset = prepare_dataset("/content/drive/MyDrive/git_clone",tokenizer,256)
 
     # predict answer
     pred_answer = inference(model, hate_test_dataset, device)  # model에서 class 추론
@@ -53,7 +53,7 @@ def infer_and_eval(model_name,model_dir):
     )
 
     # 최종적으로 완성된 예측한 라벨 csv 파일 형태로 저장.
-    result_path = "./prediction/"
+    result_path = "/content/drive/MyDrive/git_clone/prediction"  # 이미 있는 prediction 폴더를 참조하는 것
     if not os.path.exists(result_path):
         os.makedirs(result_path)
     output.to_csv(
@@ -64,7 +64,7 @@ def infer_and_eval(model_name,model_dir):
 
 if __name__ == "__main__":
     model_name = "klue/bert-base"
-    model_dir = "./best_model"
+    model_dir = "/content/drive/MyDrive/git_clone/best_model"
 
     infer_and_eval(model_name,model_dir)
     
