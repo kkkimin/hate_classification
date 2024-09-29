@@ -1,0 +1,21 @@
+{"time":"2024-09-29T08:28:26.928435421Z","level":"INFO","msg":"using version","core version":"0.18.2"}
+{"time":"2024-09-29T08:28:26.930929812Z","level":"INFO","msg":"created symlink","path":"/content/drive/MyDrive/git_clone/wandb/run-20240929_082826-o3wmfrv9/logs/debug-core.log"}
+{"time":"2024-09-29T08:28:26.942497855Z","level":"INFO","msg":"created new stream","id":"o3wmfrv9"}
+{"time":"2024-09-29T08:28:26.943357395Z","level":"INFO","msg":"stream: started","id":"o3wmfrv9"}
+{"time":"2024-09-29T08:28:26.943386575Z","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"o3wmfrv9"}}
+{"time":"2024-09-29T08:28:26.943481242Z","level":"INFO","msg":"handler: started","stream_id":{"value":"o3wmfrv9"}}
+{"time":"2024-09-29T08:28:26.943507715Z","level":"INFO","msg":"sender: started","stream_id":{"value":"o3wmfrv9"}}
+{"time":"2024-09-29T08:28:27.896694302Z","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-29T08:28:27.906949563Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-29T08:28:35.956600927Z","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-09-29T08:29:11.332982888Z","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-09-29T08:29:11.440910034Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-29T08:29:11.443943628Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-09-29T08:29:11.570969992Z","level":"WARN","msg":"Unable to find program entrypoint in current directory, not creating job artifact."}
+{"time":"2024-09-29T08:29:11.571101945Z","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2024-09-29T08:29:11.808028066Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-09-29T08:29:12.946250701Z","level":"INFO","msg":"stream: closing","id":"o3wmfrv9"}
+{"time":"2024-09-29T08:29:12.947514779Z","level":"INFO","msg":"handler: closed","stream_id":{"value":"o3wmfrv9"}}
+{"time":"2024-09-29T08:29:12.947565178Z","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"o3wmfrv9"}}
+{"time":"2024-09-29T08:29:12.9478189Z","level":"INFO","msg":"sender: closed","stream_id":{"value":"o3wmfrv9"}}
+{"time":"2024-09-29T08:29:12.952048018Z","level":"INFO","msg":"stream: closed","id":"o3wmfrv9"}
