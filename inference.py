@@ -1,3 +1,7 @@
+
+
+# 라이브러리 임포트
+
 from torch.utils.data import DataLoader
 import pandas as pd
 import torch
@@ -7,6 +11,7 @@ import numpy as np
 from tqdm import tqdm
 from model import load_model_for_inference
 from data import prepare_dataset
+
 
 def inference(model, tokenized_sent, device):
     """학습된(trained) 모델을 통해 결과를 추론하는 function"""
@@ -26,6 +31,7 @@ def inference(model, tokenized_sent, device):
         output_pred.append(result)
     return (np.concatenate(output_pred).tolist(),)
 
+#----------------------------------------------------------------------------------------------------------------------------------------
 def infer_and_eval(model_name,model_dir):
     """학습된 모델로 추론(infer)한 후에 예측한 결과(pred)를 평가(eval)"""
     # set device
@@ -53,7 +59,7 @@ def infer_and_eval(model_name,model_dir):
     )
 
     # 최종적으로 완성된 예측한 라벨 csv 파일 형태로 저장.
-    result_path = "/content/drive/MyDrive/git_clone/prediction"  # 이미 있는 prediction 폴더를 참조하는 것
+    result_path = "/content/drive/MyDrive/git_clone/prediction"
     if not os.path.exists(result_path):
         os.makedirs(result_path)
     output.to_csv(
@@ -62,9 +68,11 @@ def infer_and_eval(model_name,model_dir):
     print("--- Save result ---")
     return output
 
+#----------------------------------------------------------------------------------------------------------------------------------------
+
+# 메인 함수 정의(추론,평가)
 if __name__ == "__main__":
     model_name = "klue/bert-base"
     model_dir = "/content/drive/MyDrive/git_clone/best_model"
 
     infer_and_eval(model_name,model_dir)
-    

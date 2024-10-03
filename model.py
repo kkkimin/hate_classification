@@ -1,3 +1,5 @@
+
+# 라이브러리 임포트
 import pytorch_lightning as pl
 import torch
 from utils import compute_metrics
@@ -11,13 +13,17 @@ from transformers import (
 from transformers import Trainer, TrainingArguments
 from transformers import EarlyStoppingCallback
 from transformers.optimization import get_cosine_with_hard_restarts_schedule_with_warmup
+from tqdm import tqdm
+
+# 수정 후
+from transformers import get_cosine_schedule_with_warmup  # 추가해야 함
 
 
 def load_tokenizer_and_model_for_train(args):
-    """학습(train)을 위한 사전학습(pretrained) 토크나이저와 모델을 huggingface에서 load"""
+    """학습(train)을 위해 '사전학습(protrainde)된 토크나이저와 모델을 huggingface에서 load"""
     # load model and tokenizer
     MODEL_NAME = args.model_name
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+    tokenizer = AutuTokenizer.from_pretrained(MODEL_NAME)
 
     # setting model hyperparameter
     model_config = AutoConfig.from_pretrained(MODEL_NAME)
@@ -30,6 +36,7 @@ def load_tokenizer_and_model_for_train(args):
     print("--- Modeling Done ---")
     return tokenizer, model
 
+#----------------------------------------------------------------------------------------------------------------------------------------
 def load_model_for_inference(model_name,model_dir):
     """추론(infer)에 필요한 모델과 토크나이저 load """
     # load tokenizer
@@ -40,36 +47,39 @@ def load_model_for_inference(model_name,model_dir):
     model = AutoModelForSequenceClassification.from_pretrained(model_dir)
 
     return tokenizer, model
-
+#----------------------------------------------------------------------------------------------------------------------------------------
 
 def load_trainer_for_train(args, model, hate_train_dataset, hate_valid_dataset):
     """학습(train)을 위한 huggingface trainer 설정"""
     training_args = TrainingArguments(
-        output_dir=args.save_path + "/results",  # output directory
-        save_total_limit=args.save_limit,  # number of total save model.
-        save_steps=args.save_step,  # model saving step.
-        num_train_epochs=args.epochs,  # total number of training epochs
-        learning_rate=args.lr,  # learning_rate
-        per_device_train_batch_size=args.batch_size,  # batch size per device during training
-        per_device_eval_batch_size=8,  # batch size for evaluation
-        warmup_steps=args.warmup_steps,  # number of warmup steps for learning rate scheduler
-        weight_decay=args.weight_decay,  # strength of weight decay
-        logging_dir=args.save_path + "logs",  # directory for storing logs
-        logging_steps=args.logging_step,  # log saving step.
-        evaluation_strategy="steps",  # evaluation strategy to adopt during training
+        output_dir = args.save_path + "/results",  # 모델 훈련 후 결과 파일이 저장될 경로를 설정
+        save_total_limit = args.save_limit,  # 저장할 모델의 최대 개수를 설정(for 공간절약)
+        save_steps = args.save_step,  # 모델을 저장할 스텝 간격을 설정
+        num_train_epochs = args.epochs,  # total number of training epochs
+        learning_rate = args.lr,  # learning_rate
+        per_device_train_batch_size = args.batch_size,  # 각 장치에서 훈련할 배치 사이즈를 설정
+        per_device_eval_batch_size = 8,  # 평가 시 사용할 배치 사이즈를 설정
+        warmup_steps = args.warmup_steps,  # number of warmup steps for learning rate scheduler
+        weight_decay = args.weight_decay,  # 가중치 감소 값을 설정(과적합 방지를 위해)
+        logging_dir = args.save_path + "logs",  # directory for storing logs
+        logging_steps = args.logging_step,  # 로그 파일이 저장될 디렉토리 경로를 설정
+        eval_strategy = "steps",  # 로그를 저장할 스텝 간격을 설정
         # `no`: No evaluation during training.
         # `steps`: Evaluate every `eval_steps`.
         # `epoch`: Evaluate every end of epoch.
-        eval_steps=args.eval_step,  # evaluation step.
-        load_best_model_at_end=True,
-        report_to="wandb",  # W&B 로깅 활성화
-        run_name=args.run_name,  # run_name 지정
+        eval_steps = args.eval_step,  # 평가할 스텝 간격을 설정
+        load_best_model_at_end = True,  # 훈련 종료 후 최상의 모델을 로드할지 여부를 설정
+        report_to = "wandb",  # W&B 로깅 활성화(로깅 툴을 지정)
+        run_name = args.run_name,  # W&B에 기록될 실행 이름을 설정(args.run_name: 실험을 식별할 수 있는 이름임)
     )
 
     ## Add callback & optimizer & scheduler
     MyCallback = EarlyStoppingCallback(
-        early_stopping_patience=2, early_stopping_threshold=0.001
+        early_stopping_patience=4,      # 몇 에폭 동안 검증 손실이 개선되지 않으면 훈련을 중단할지를 결정
+        early_stopping_threshold=0.001  # 개선을 고려하는 손실 변화의 최소 크기
     )
+    # 수정 후
+    from transformers import get_cosine_schedule_with_warmup  # 추가해야 함
 
     optimizer = torch.optim.AdamW(
         model.parameters(),
@@ -101,7 +111,7 @@ def load_trainer_for_train(args, model, hate_train_dataset, hate_valid_dataset):
 
     return trainer
 
-
+#----------------------------------------------------------------------------------------------------------------------------------------
 def train(args):
     """모델을 학습(train)하고 best model을 저장"""
     # fix a seed
@@ -131,3 +141,4 @@ def train(args):
     trainer.train()
     print("--- Finish train ---")
     model.save_pretrained(args.model_dir)
+
