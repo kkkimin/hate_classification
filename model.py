@@ -23,7 +23,7 @@ def load_tokenizer_and_model_for_train(args):
     """학습(train)을 위해 '사전학습(protrainde)된 토크나이저와 모델을 huggingface에서 load"""
     # load model and tokenizer
     MODEL_NAME = args.model_name
-    tokenizer = AutuTokenizer.from_pretrained(MODEL_NAME)
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
     # setting model hyperparameter
     model_config = AutoConfig.from_pretrained(MODEL_NAME)
