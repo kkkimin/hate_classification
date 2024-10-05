@@ -42,7 +42,7 @@ def infer_and_eval(model_name,model_dir):
     model.to(device)
 
     # set data
-    _,_, hate_test_dataset, test_dataset = prepare_dataset("/content/drive/MyDrive/git_clone",tokenizer,256)
+    _,_, hate_test_dataset, test_dataset = prepare_dataset("/home/mean6021/hate_classification", tokenizer,256)
 
     # predict answer
     pred_answer = inference(model, hate_test_dataset, device)  # model에서 class 추론
@@ -59,7 +59,7 @@ def infer_and_eval(model_name,model_dir):
     )
 
     # 최종적으로 완성된 예측한 라벨 csv 파일 형태로 저장.
-    result_path = "/content/drive/MyDrive/git_clone/prediction"
+    result_path = "/home/mean6021/hate_classification/prediction"
     if not os.path.exists(result_path):
         os.makedirs(result_path)
     output.to_csv(
@@ -73,6 +73,6 @@ def infer_and_eval(model_name,model_dir):
 # 메인 함수 정의(추론,평가)
 if __name__ == "__main__":
     model_name = "klue/bert-base"
-    model_dir = "/content/drive/MyDrive/git_clone/best_model"
+    model_dir = "/home/mean6021/hate_classification/best_model"
 
     infer_and_eval(model_name,model_dir)
