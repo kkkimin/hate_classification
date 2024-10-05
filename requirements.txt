@@ -1,0 +1,9 @@
+transformers
+datasets
+scikit-learn
+pandas
+numpy
+pytorch-lightning
+wandb
+matplotlib
+tqdm
