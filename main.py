@@ -37,23 +37,23 @@ def parse_args():
         "--save_path", type=str, default="/content/drive/MyDrive/git_clone/model", help="모델 저장 경로"
     )
     parser.add_argument(
-        "--save_step", type=int, default=1000, help="모델을 저장할 스텝 간격"  # 모델이 훈련 도중에 저장되는 간격을 설정
+        "--save_step", type=int, default=500, help="모델을 저장할 스텝 간격"  # 모델이 훈련 도중에 저장되는 간격을 설정
     )
     parser.add_argument(
         "--logging_step", type=int, default=100, help="로그를 출력할 스텝 간격"
     )
     parser.add_argument(
-        "--eval_step", type=int, default=1000, help="모델을 평가할 스텝 간격"
+        "--eval_step", type=int, default=500, help="모델을 평가할 스텝 간격"
     )
     parser.add_argument(
-        "--save_limit", type=int, default=7, help="저장할 모델의 최대 개수"
+        "--save_limit", type=int, default=5, help="저장할 모델의 최대 개수"
     )
     parser.add_argument("--seed", type=int, default=42, help="랜덤 시드 값")
-    parser.add_argument("--epochs", type=int, default=10, help="에폭 수 (예: 10)")
+    parser.add_argument("--epochs", type=int, default=5, help="에폭 수 (예: 10)")
     parser.add_argument(
         "--batch_size",
         type=int,
-        default=4,
+        default=8,
         help="배치 사이즈 (메모리에 맞게 조절, 예: 16 또는 32)",
     )
     parser.add_argument(
@@ -78,7 +78,7 @@ def parse_args():
     parser.add_argument(
         "--run_name",
         type=str,
-        default="bert-0930_5th",
+        default="bert-1005-1.0",
         help="wandb 에 기록되는 run name",
     )
 
