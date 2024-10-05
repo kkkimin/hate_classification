@@ -1,7 +1,4 @@
 
-
-# 라이브러리 임포트
-
 import os
 import sys  # 추가된 부분
 import argparse
@@ -18,7 +15,7 @@ def parse_args():
     parser.add_argument(
         "--dataset_dir",
         type=str,
-        default="/content/drive/MyDrive/git_clone",
+        default="/home/mean6021/hate_classification",
         help="데이터셋 디렉토리 경로",
     )
     parser.add_argument(
@@ -34,7 +31,7 @@ def parse_args():
         help='모델 이름 (예: "klue/bert-base", "monologg/koelectra-base-finetuned-nsmc")',
     )
     parser.add_argument(
-        "--save_path", type=str, default="/content/drive/MyDrive/git_clone/model", help="모델 저장 경로"
+        "--save_path", type=str, default="/home/mean6021/hate_classification/model", help="모델 저장 경로"
     )
     parser.add_argument(
         "--save_step", type=int, default=500, help="모델을 저장할 스텝 간격"  # 모델이 훈련 도중에 저장되는 간격을 설정
@@ -70,7 +67,7 @@ def parse_args():
     parser.add_argument(
         "--model_dir",
         type=str,
-        default="/content/drive/MyDrive/git_clone/best_model",
+        default="/home/mean6021/hate_classification/best_model",
         help="추론 시 불러올 모델의 경로",
     )
 
@@ -94,6 +91,6 @@ if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "false"    # tokenizer 사용 시 warning 방지
     args = parse_args()                               # 지정한 인자들을 받아와서 args 객체에 저장
 
-    wandb.init(project="KIN", name=args.run_name)    # 프로젝트 이름을 설정하여 실험 기록 시작
+    wandb.init(project="GCP_KIN", name=args.run_name)    # 프로젝트 이름을 설정하여 실험 기록 시작
     train(args)                                       # train 함수를 호출하여 실제로 모델 학습(train)을 진행함.
 
