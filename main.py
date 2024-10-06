@@ -93,7 +93,7 @@ def parse_args():
     parser.add_argument(
         "--run_name",
         type=str,
-        default="bert_Add-AEDA_lr2e5_v1.0",
+        default="retest_beomi/KcELECTRA-base",
         help="wandb 에 기록되는 run name",
     )
 
