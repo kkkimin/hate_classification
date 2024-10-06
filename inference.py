@@ -1,6 +1,6 @@
-
-
-# 라이브러리 임포트
+import os
+os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 from torch.utils.data import DataLoader
 import pandas as pd
@@ -21,7 +21,7 @@ def load_data(dataset_dir):
 
 def inference(model, tokenized_sent, device):
     """학습된(trained) 모델을 통해 결과를 추론하는 function"""
-    dataloader = DataLoader(tokenized_sent, batch_size=32, shuffle=False)
+    dataloader = DataLoader(tokenized_sent, batch_size=16, shuffle=False)
     model.eval()
     output_pred = []
     for i, data in enumerate(tqdm(dataloader)):
@@ -66,6 +66,16 @@ def infer_and_eval(model_name,model_dir):
     pred = pred_answer[0]
     print("--- Prediction done ---")
 
+# 크기와 출력 확인 코드 추가 ---------------------------------------------
+    # Check if prediction and label sizes match
+    if len(pred) != len(test_dataset["output"]):
+        raise ValueError(f"Prediction length {len(pred)} does not match label length {len(test_dataset['output'])}")
+
+    # 이진 분류에서 예측값이 0 또는 1인지 확인
+    if not all(p in [0, 1] for p in pred):
+        raise ValueError("Predictions contain values other than 0 and 1")
+    # -------------------------------------------------------------------------
+
     # make csv file with predicted answer
     output = pd.DataFrame(
         {
@@ -91,7 +101,7 @@ def infer_and_eval(model_name,model_dir):
 
 # 메인 함수 정의(추론,평가)
 if __name__ == "__main__":
-    model_name = "klue/bert-base"
-    model_dir = "/home/mean6021/hate_classification/best_model"
+    model_name = "beomi/KcELECTRA-base"
+    model_dir = "/home/mean6021/hate_classification/model/results/checkpoint-4500"
 
     infer_and_eval(model_name,model_dir)
