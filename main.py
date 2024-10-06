@@ -3,22 +3,14 @@ import sys
 import argparse
 import pandas as pd
 import wandb
-from model import train, infer
+from model import train
 
 
 # parse_args 함수(인자) : model 학습 및 추론에 쓰일 config 를 관리
 
 def parse_args():
     """학습(train)과 추론(infer)에 사용되는 arguments를 관리하는 함수"""
-    parser = argparse.ArgumentParser(description="Training and Inference arguments")
-
-    # (추가) AEDA로 증강된 데이터 파일의 경로
-    parser.add_argument(
-        "--augmented_data_dir",
-        type=str,
-        default="/home/mean6021/hate_classification/combined_train_with_punctuation",  # AEDA로 증강된 데이터 파일의 경로
-        help="AEDA로 증강된 데이터의 경로"
-    )    
+    parser = argparse.ArgumentParser(description="Training and Inference arguments")    
 
     parser.add_argument(
         "--dataset_dir",
@@ -79,11 +71,19 @@ def parse_args():
         help="추론 시 불러올 모델의 경로",
     )
 
+    # (추가) AEDA로 증강된 데이터 파일의 경로
+    parser.add_argument(
+        "--augmented_data_dir",
+        type=str,
+        default="/home/mean6021/hate_classification/combined_train_with_punctuation.csv",  # AEDA로 증강된 데이터 파일의 경로
+        help="AEDA로 증강된 데이터의 경로"
+    )    
+
     # wandb 수정 이름 변경!
     parser.add_argument(
         "--run_name",
         type=str,
-        default="bert_lr1e5_bs16_ep10_ws500_es6_1005",
+        default="bert_Add-AEDA_lr2e5_v1.0",
         help="wandb 에 기록되는 run name",
     )
 
@@ -105,19 +105,18 @@ if __name__ == "__main__":
     print(f"원본 데이터 개수: {len(original_data)}")
 
     # 증강된 데이터 로딩
+    augmented_data_path = os.path.join(args.augmented_data_dir, 'combined_train_with_punctuation.csv') # 증강된 데이터 파일 경로
     if os.path.exists(args.augmented_data_dir):
         augmented_data = pd.read_csv(args.augmented_data_dir)
         print(f"AEDA로 증강된 데이터 개수: {len(augmented_data)}")
     else:
-        print("증강된 데이터 파일이 존재하지 않습니다.")
-        # 여기서 AEDA를 수행할 수도 있습니다.
-        # 예: augmented_data = aeda_augmentation(...)
-
-    # 결합된 데이터 생성
+        raise FileNotFoundError(f"증강된 데이터 파일이 {augmented_data_path}에 존재하지 않습니다.")  
+    
+    # 결합된 데이터는 원본 데이터만으로 생성
     combined_data = pd.concat([original_data, augmented_data], ignore_index=True)
     print(f"결합된 데이터 개수: {len(combined_data)}")
 
-
-    wandb.init(project="GCP_KIN", name=args.run_name)    # 프로젝트 이름을 설정하여 실험 기록 시작
+    # 프로젝트 이름을 설정하여 실험 기록 시작
+    wandb.init(project="GCP_KIN", name=args.run_name)    
     train(args, combined_data)                           # train 함수를 호출하여 실제로 모델 학습(train)을 진행함.
 

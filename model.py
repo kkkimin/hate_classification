@@ -29,17 +29,16 @@ def load_tokenizer_and_model_for_train(args):
     model_config.num_labels = 2
     print(model_config)
 
-    # 새 레이어 수 설정 
+    '''# 새 레이어 수 설정 
     new_num_layers = 16 # (원하는 길이로 수정, BERT 기본값은 12)
     model_config.num_hidden_layers = new_num_layers
     
-    print(model_config)
+    print(model_config)'''
 
-    # Custom BERT Model 로드
-    model = CustomBERTModel.from_pretrained(
+    model = AutoModelForSequenceClassification.from_pretrained(
         MODEL_NAME, config=model_config
     )
-    print("--- Custom BERT Modeling Done ---")
+    print("--- Modeling Done ---")
     return tokenizer, model
 
 #----------------------------------------------------------------------------------------------------------------------------------------
@@ -98,7 +97,7 @@ def load_trainer_for_train(args, model, hate_train_dataset, hate_valid_dataset):
     print("--- Set training arguments Done ---")
 
     trainer = Trainer(
-        model=model,  # Custom BERT 모델
+        model=model,  # 기본 BERT 모델
         args=training_args,  # training arguments, defined above
         train_dataset=hate_train_dataset,  # training dataset
         eval_dataset=hate_valid_dataset,  # evaluation dataset
