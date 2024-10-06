@@ -51,7 +51,7 @@ def load_model_for_inference(model_name,model_dir):
 def load_trainer_for_train(args, model, hate_train_dataset, hate_valid_dataset):
     """학습(train)을 위한 huggingface trainer 설정"""
     training_args = TrainingArguments(
-        output_dir = args.save_path + "/results",  # 모델 훈련 후 결과 파일이 저장될 경로를 설정
+        output_dir = args.save_path + "/home/mean6021/hate_classification/results",  # 모델 훈련 후 결과 파일이 저장될 경로를 설정
         save_total_limit = args.save_limit,  # 저장할 모델의 최대 개수를 설정(for 공간절약)
         save_steps = args.save_step,  # 모델을 저장할 스텝 간격을 설정
         num_train_epochs = args.epochs,  # total number of training epochs

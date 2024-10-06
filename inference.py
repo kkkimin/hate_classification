@@ -12,6 +12,8 @@ from tqdm import tqdm
 from model import load_model_for_inference
 from data import prepare_dataset
 
+# CUDA 캐시 비우기
+torch.cuda.empty_cache()
 
 def inference(model, tokenized_sent, device):
     """학습된(trained) 모델을 통해 결과를 추론하는 function"""
@@ -67,6 +69,8 @@ def infer_and_eval(model_name,model_dir):
     )
     print("--- Save result ---")
     return output
+
+
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 

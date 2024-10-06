@@ -93,7 +93,7 @@ def parse_args():
     parser.add_argument(
         "--run_name",
         type=str,
-        default="beomi/KcBERT",
+        default="change_to_beomi/KcBERT",
         help="wandb 에 기록되는 run name",
     )
 
