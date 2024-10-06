@@ -48,21 +48,27 @@ def construct_tokenized_dataset(dataset, tokenizer, max_length):   # dataframe �
     return tokenized_sentences        # (type : tensor)
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-def prepare_dataset(dataset_dir, tokenizer, max_len):   # csv file 로부터 읽어온 데이터를 tokenized dataset 으로 반환하는 함수
+def prepare_dataset(dataset_dir, tokenizer, max_len, combined_data):   # csv file 로부터 읽어온 데이터를 tokenized dataset 으로 반환하는 함수
     """학습(train)과 평가(test)를 위한 데이터셋을 준비"""
     # load_data (type : df)
-    train_dataset = load_data(os.path.join(dataset_dir, "train.csv"))
     valid_dataset = load_data(os.path.join(dataset_dir, "dev.csv"))
     test_dataset = load_data(os.path.join(dataset_dir, "test.csv"))
     print("--- data loading Done ---")
 
     # split label (type : narray)
-    train_label = train_dataset["output"].values  # train_dataset의 'output' 열의 값을 'Series' 형태로 반환.
+    ## train_label = train_dataset["output"].values  # train_dataset의 'output' 열의 값을 'Series' 형태로 반환.
     valid_label = valid_dataset["output"].values  # .values: 해당 Series의 값을 'NumPy 배열' 형태로 변환
     test_label = test_dataset["output"].values    # 즉, output 열의 값들을 리스트가 아닌 "배열"로 변환하여 이후의 모델 학습 등에서 사용할 수 있도록 함.
 
-    # tokenizing dataset (type : tensor)
-    tokenized_train = construct_tokenized_dataset(train_dataset, tokenizer, max_len)
+    # combined_data에서 학습 데이터를 로드하고 라벨 분리
+    train_label = combined_data["output"].values  # combined_data에서 output 열을 사용
+    print("--- Combined Data 로드 완료 ---")
+
+    # combined_data를 tokenizing
+    tokenized_train = construct_tokenized_dataset(combined_data, tokenizer, max_len)
+    print("--- Combined Data tokenizing 완료 ---")
+
+    # tokenizing dataset (type : tensor)  
     tokenized_valid = construct_tokenized_dataset(valid_dataset, tokenizer, max_len)
     tokenized_test = construct_tokenized_dataset(test_dataset, tokenizer, max_len)
     print("--- data tokenizing Done ---")

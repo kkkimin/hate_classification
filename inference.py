@@ -11,7 +11,13 @@ import numpy as np
 from tqdm import tqdm
 from model import load_model_for_inference
 from data import prepare_dataset
+from transformers import AutoTokenizer
 
+# 데이터셋을 로드하는 함수 정의
+def load_data(dataset_dir):                
+    """csv file을 dataframe으로 load"""
+    dataset = pd.read_csv(dataset_dir)  # csv 파일을 읽어서 데이터프레임으로 반환
+    return dataset
 
 def inference(model, tokenized_sent, device):
     """학습된(trained) 모델을 통해 결과를 추론하는 function"""
@@ -37,12 +43,23 @@ def infer_and_eval(model_name,model_dir):
     # set device
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+    # 1. Combined data 로드
+    combined_data_path = os.path.join("/home/mean6021/hate_classification", "combined_train_with_punctuation.csv")  # combined_data의 경로 설정
+    
+    combined_data = load_data(combined_data_path)  # combined_data 로드
+
     # set model & tokenizer
     tokenizer, model = load_model_for_inference(model_name,model_dir)
     model.to(device)
 
-    # set data
-    _,_, hate_test_dataset, test_dataset = prepare_dataset("/home/mean6021/hate_classification", tokenizer,256)
+    # 3. prepare_dataset 호출
+    # prepare_dataset 함수에 combined_data를 인자로 전달
+    _, _, hate_test_dataset, test_dataset = prepare_dataset(
+        "/home/mean6021/hate_classification",  # 데이터셋 디렉토리
+        tokenizer,                              # 초기화한 tokenizer
+        256,                                    # max_length
+        combined_data                           # combined_data 인자 추가
+    )
 
     # predict answer
     pred_answer = inference(model, hate_test_dataset, device)  # model에서 class 추론

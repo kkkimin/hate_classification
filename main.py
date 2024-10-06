@@ -4,6 +4,7 @@ import argparse
 import pandas as pd
 import wandb
 from model import train
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 
 # parse_args 함수(인자) : model 학습 및 추론에 쓰일 config 를 관리
@@ -24,12 +25,21 @@ def parse_args():
         default="bert",
         help='모델 타입 (예: "bert", "electra")',
     )
+
     parser.add_argument(
-        "--model_name",
-        type=str,
-        default="klue/bert-base",
-        help='모델 이름 (예: "klue/bert-base", "monologg/koelectra-base-finetuned-nsmc")',
-    )
+    "--model_name",
+    type=str,
+    default="beomi/KcELECTRA-base",  # beomi 모델로 변경
+    help='모델 이름 (예: "klue/bert-base", "beomi/KcELECTRA-base")',
+)
+
+    # parser.add_argument(
+    #     "--model_name",
+    #     type=str,
+    #     default="klue/bert-base",
+    #     help='모델 이름 (예: "klue/bert-base", "monologg/koelectra-base-finetuned-nsmc")',
+    # )
+
     parser.add_argument(
         "--save_path", type=str, default="/home/mean6021/hate_classification/model", help="모델 저장 경로"
     )
