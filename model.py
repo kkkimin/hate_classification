@@ -111,7 +111,7 @@ def load_trainer_for_train(args, model, hate_train_dataset, hate_valid_dataset):
     return trainer
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-def train(args):
+def train(args, combined_data):
     """모델을 학습(train)하고 best model을 저장"""
     # fix a seed
     pl.seed_everything(seed=42, workers=False)

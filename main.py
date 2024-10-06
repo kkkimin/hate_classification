@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument(
     "--model_name",
     type=str,
-    default="beomi/KcBERT",  # beomi 모델로 변경
+    default="beomi/KcELECTRA-base",  # beomi 모델로 변경
     help='모델 이름 (예: "klue/bert-base", "beomi/KcELECTRA-base")',
 )
 
