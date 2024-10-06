@@ -13,11 +13,6 @@ from model import load_model_for_inference
 from data import prepare_dataset
 from transformers import AutoTokenizer
 
-# 데이터셋을 로드하는 함수 정의
-def load_data(dataset_dir):                
-    """csv file을 dataframe으로 load"""
-    dataset = pd.read_csv(dataset_dir)  # csv 파일을 읽어서 데이터프레임으로 반환
-    return dataset
 
 def inference(model, tokenized_sent, device):
     """학습된(trained) 모델을 통해 결과를 추론하는 function"""
@@ -84,6 +79,8 @@ def infer_and_eval(model_name,model_dir):
     )
     print("--- Save result ---")
     return output
+
+
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 
