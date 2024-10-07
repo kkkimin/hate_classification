@@ -11,12 +11,8 @@ from transformers import (
 )
 from transformers import Trainer, TrainingArguments
 from transformers import EarlyStoppingCallback
-from transformers.optimization import get_cosine_with_hard_restarts_schedule_with_warmup
+from transformers.optimization import get_linear_schedule_with_warmup  
 from tqdm import tqdm
-
-# 수정 후
-from transformers import get_cosine_schedule_with_warmup  # 추가해야 함
-
 
 def load_tokenizer_and_model_for_train(args):
     """학습(train)을 위해 '사전학습(protrainde)된 토크나이저와 모델을 huggingface에서 load"""
@@ -28,12 +24,6 @@ def load_tokenizer_and_model_for_train(args):
     model_config = AutoConfig.from_pretrained(MODEL_NAME)
     model_config.num_labels = 2
     print(model_config)
-
-    '''# 새 레이어 수 설정 
-    new_num_layers = 16 # (원하는 길이로 수정, BERT 기본값은 12)
-    model_config.num_hidden_layers = new_num_layers
-    
-    print(model_config)'''
 
     model = AutoModelForSequenceClassification.from_pretrained(
         MODEL_NAME, config=model_config
@@ -57,7 +47,9 @@ def load_model_for_inference(model_name,model_dir):
 def load_trainer_for_train(args, model, hate_train_dataset, hate_valid_dataset):
     """학습(train)을 위한 huggingface trainer 설정"""
     training_args = TrainingArguments(
-        output_dir = args.save_path + "/home/mean6021/hate_classification/results",  # 모델 훈련 후 결과 파일이 저장될 경로를 설정
+        output_dir = args.save_path + "/results",  # 모델 훈련 후 결과 파일이 저장되는 디렉토리
+        # output_dir의 최종 경로는 /home/mean6021/hate_classification/model/results (체크포인트 저장됨)
+
         save_total_limit = args.save_limit,  # 저장할 모델의 최대 개수를 설정(for 공간절약)
         save_steps = args.save_step,  # 모델을 저장할 스텝 간격을 설정
         num_train_epochs = args.epochs,  # total number of training epochs
@@ -83,8 +75,6 @@ def load_trainer_for_train(args, model, hate_train_dataset, hate_valid_dataset):
         early_stopping_patience=6,      # 몇 에폭 동안 검증 손실이 개선되지 않으면 훈련을 중단할지를 결정
         early_stopping_threshold=0.001  # 개선을 고려하는 손실 변화의 최소 크기
     )
-    # 수정 후
-    from transformers import get_cosine_schedule_with_warmup  # 추가해야 함
 
     optimizer = torch.optim.AdamW(
         model.parameters(),
@@ -103,12 +93,14 @@ def load_trainer_for_train(args, model, hate_train_dataset, hate_valid_dataset):
         eval_dataset=hate_valid_dataset,  # evaluation dataset
         compute_metrics=compute_metrics,  # define metrics function
         callbacks=[MyCallback],
-        optimizers=(
-            optimizer,
-            get_cosine_with_hard_restarts_schedule_with_warmup(
+        
+        # 옵티마이저와 스케쥴러 설정하는 부분
+        optimizers=(                            
+            optimizer,                                                       # optimizers=(optimizer,) 옵티마이저 설정
+            get_linear_schedule_with_warmup(                                 # 선형 스케줄러와 워밍업 스케줄러를 결합한 스케줄러를 반환 함수
                 optimizer,
-                num_warmup_steps=args.warmup_steps,
-                num_training_steps=len(hate_train_dataset) * args.epochs,
+                num_warmup_steps=args.warmup_steps,                         # 워밍업 단계의 스텝 수
+                num_training_steps=len(hate_train_dataset) * args.epochs,   # 전체 학습 단계의 스텝 수
             ),
         ),
     )
