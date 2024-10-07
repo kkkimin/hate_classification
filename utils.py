@@ -1,9 +1,7 @@
-
 import torch
 from sklearn.metrics import accuracy_score, f1_score
 
 # compute_metrics 함수: Trainer 에서 metric 을 계산하기 위해 쓰이는 함수
-
 def compute_metrics(pred):
     """validation을 위한 metrics function"""
     labels = pred.label_ids

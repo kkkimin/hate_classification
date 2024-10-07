@@ -6,9 +6,7 @@ import wandb
 from model import train
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-
 # parse_args 함수(인자) : model 학습 및 추론에 쓰일 config 를 관리
-
 def parse_args():
     """학습(train)과 추론(infer)에 사용되는 arguments를 관리하는 함수"""
     parser = argparse.ArgumentParser(description="Training and Inference arguments")    
@@ -27,21 +25,10 @@ def parse_args():
     )
 
     parser.add_argument(
-    "--model_name",
-    type=str,
-    default="beomi/KcELECTRA-base",  # beomi 모델로 변경
-    help='모델 이름 (예: "klue/bert-base", "beomi/KcELECTRA-base")',
-)
-
-    # parser.add_argument(
-    #     "--model_name",
-    #     type=str,
-    #     default="klue/bert-base",
-    #     help='모델 이름 (예: "klue/bert-base", "monologg/koelectra-base-finetuned-nsmc")',
-    # )
-
+        "--model_name", type=str, default="beomi/KcELECTRA-base", help='모델 이름',
+    )   
     parser.add_argument(
-        "--save_path", type=str, default="/home/mean6021/hate_classification/model", help="모델 저장 경로"
+        "--save_path", type=str, default="./model", help="모델 저장 경로"
     )
     parser.add_argument(
         "--save_step", type=int, default=500, help="모델을 저장할 스텝 간격"  # 모델이 훈련 도중에 저장되는 간격을 설정
@@ -77,25 +64,20 @@ def parse_args():
     parser.add_argument(
         "--model_dir",
         type=str,
-        default="/home/mean6021/hate_classification/best_model",
+        default="./best_model",
         help="추론 시 불러올 모델의 경로",
-    )
-
-    # (추가) AEDA로 증강된 데이터 파일의 경로
-    parser.add_argument(
-        "--augmented_data_dir",
-        type=str,
-        default="/home/mean6021/hate_classification/combined_train_with_punctuation.csv",  # AEDA로 증강된 데이터 파일의 경로
-        help="AEDA로 증강된 데이터의 경로"
-    )    
-
-    # wandb 수정 이름 변경!
-    parser.add_argument(
+    )         
+    parser.add_argument(    # wandb 수정 이름 변경!
         "--run_name",
         type=str,
         default="retest_beomi/KcELECTRA-base",
         help="wandb 에 기록되는 run name",
     )
+
+    parser.add_argument("--original_data_dir", type=str, default="./", help="원본 데이터의 경로")    # "./"는 현재 디렉토리 의미
+    parser.add_argument("--original_data_file", type=str, default="train.csv", help="원본 데이터의 파일 이름")
+    parser.add_argument("--augmented_data_dir", type=str, default="./", help="AEDA로 증강된 데이터의 경로")
+    parser.add_argument("--augmented_data_file", type=str, default="combined_train_with_punctuation.csv", help="AEDA로 증강된 데이터 파일 이름")
 
     args = parser.parse_args()
     return args
@@ -107,24 +89,25 @@ from tqdm import tqdm
 if __name__ == "__main__":
     sys.argv = sys.argv[:1]
     os.environ["TOKENIZERS_PARALLELISM"] = "false"    # tokenizer 사용 시 warning 방지
-    args = parse_args()                               # 지정한 인자들을 받아와서 args 객체에 저장
-
-    # 원본 데이터 로딩
-    original_data_path = os.path.join(args.dataset_dir, 'train.csv')
+    args = parse_args()
+    
+    # 원본데이터(train.csv) 로딩
+    original_data_path = os.path.join(args.original_data_dir, args.original_data_file)  # "./train.csv"
     original_data = pd.read_csv(original_data_path)  
     print(f"원본 데이터 개수: {len(original_data)}")
 
-    # 증강된 데이터 로딩
-    augmented_data_path = os.path.join(args.augmented_data_dir, 'combined_train_with_punctuation.csv') # 증강된 데이터 파일 경로
-    if os.path.exists(args.augmented_data_dir):
-        augmented_data = pd.read_csv(args.augmented_data_dir)
+    # 증강된데이터(combined_train_with_punctuation.csv) 로딩
+    augmented_data_path = os.path.join(args.augmented_data_dir, args.augmented_data_file)  # "./combined_train_with_punctuation.csv"
+    
+    if os.path.exists(args.augmented_data_path):
+        augmented_data = pd.read_csv(args.augmented_data_path)  # augmented_data는 "combined_train_with_punctuation.csv"
         print(f"AEDA로 증강된 데이터 개수: {len(augmented_data)}")
     else:
         raise FileNotFoundError(f"증강된 데이터 파일이 {augmented_data_path}에 존재하지 않습니다.")  
     
-    # 결합된 데이터는 원본 데이터만으로 생성
-    combined_data = pd.concat([original_data, augmented_data], ignore_index=True)
-    print(f"결합된 데이터 개수: {len(combined_data)}")
+    # combined_data = train데이터 + AEDA증강데이터
+    combined_data = pd.concat([original_data, augmented_data], ignore_index=True)   # ignore_index=True 행방향 연결
+    print(f"결합된 데이터의 행의 수: {len(combined_data)}")
 
     # 프로젝트 이름을 설정하여 실험 기록 시작
     wandb.init(project="GCP_KIN", name=args.run_name)    
